@@ -1563,10 +1563,10 @@ class JvmStatsSummary(InternalTelemetryDevice):
         for node in nodes.values():
             node_name = node["name"]
             gc = node["jvm"]["gc"]["collectors"]
-            old_gen_collection_time = gc["old"]["collection_time_in_millis"]
-            old_gen_collection_count = gc["old"]["collection_count"]
-            young_gen_collection_time = gc["young"]["collection_time_in_millis"]
-            young_gen_collection_count = gc["young"]["collection_count"]
+            old_gen_collection_time =  gc["old"]["collection_time_in_millis"] if "old" in gc else 0
+            old_gen_collection_count = gc["old"]["collection_count"] if "old" in gc else 0
+            young_gen_collection_time = gc["young"]["collection_time_in_millis"] if "young" in gc else 0
+            young_gen_collection_count = gc["young"]["collection_count"] if "young" in gc else 0
             jvm_stats[node_name] = {
                 "young_gc_time": young_gen_collection_time,
                 "young_gc_count": young_gen_collection_count,
